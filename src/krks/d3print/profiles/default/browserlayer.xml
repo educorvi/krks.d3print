@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layers>
+  <layer
+      name="krks.d3print"
+      interface="krks.d3print.interfaces.IKrksD3PrintLayer"
+      />
+</layers>

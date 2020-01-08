@@ -1,0 +1,6 @@
+[report]
+include =
+    src/krks/*
+omit =
+    */test*
+    */upgrades/*
