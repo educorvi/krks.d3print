@@ -6,6 +6,12 @@
   <configure zcml:condition="installed AccessControl.security">
   <!-- -*- extra stuff goes here -*- -->
 
+    <permission
+        id="krks.d3print.AddPrinter"
+        title="krks.d3print: Add Printer"
+    />
+
+
 
   </configure>
 
