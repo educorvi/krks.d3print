@@ -6,7 +6,8 @@ from plone.dexterity.content import Container
 from plone.supermodel import model
 # from plone.supermodel.directives import fieldset
 # from z3c.form.browser.radio import RadioFieldWidget
-# from zope import schema
+from plone.namedfile.field import NamedBlobFile, NamedBlobImage
+from zope import schema
 from zope.interface import implementer
 
 
@@ -16,6 +17,9 @@ from zope.interface import implementer
 class IDruckobjekt(model.Schema):
     """ Marker interface and Dexterity Python Schema for Druckobjekt
     """
+    printmodell = NamedBlobFile(title = u'gcode Datei Dowloaden')
+    vorschaubild = NamedBlobImage(title = u'Vorschaubild')
+    pdfdoku = NamedBlobFile(title = u'Dokumentation')
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:
 

@@ -17,9 +17,6 @@ from zope.interface import implementer
 class IPrinter(model.Schema):
     """ Marker interface and Dexterity Python Schema for Printer
     """
-    printmodell = NamedBlobFile(title = u'gcode Datei Dowloaden')
-    vorschaubild = NamedBlobImage(title = u'Vorschaubild')
-    pdfdoku = NamedBlobFile(title = u'Dokumentation')
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:
 
