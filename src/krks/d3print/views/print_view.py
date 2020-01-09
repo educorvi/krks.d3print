@@ -11,7 +11,14 @@ class PrintView(BrowserView):
     # the configure.zcml registration of this view.
     # template = ViewPageTemplateFile('print_view.pt')
 
-    def __call__(self):
-        # Implement your own actions:
-        self.msg = _(u'A small message')
-        return self.index()
+    def printmodell(self):
+        printmodell = self.context.printmodell
+        return printmodell
+
+    def vorschaubild(self):
+        vorschaubild = self.context.vorschaubild
+        return vorschaubild
+
+    def pdfdoku(self):
+        pdfdoku = self.context.pdfdoku
+        return pdfdoku
