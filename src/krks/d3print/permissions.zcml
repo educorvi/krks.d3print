@@ -7,6 +7,12 @@
   <!-- -*- extra stuff goes here -*- -->
 
     <permission
+        id="krks.d3print.AddDruckobjekt"
+        title="krks.d3print: Add Druckobjekt"
+    />
+
+
+    <permission
         id="krks.d3print.AddDrucker"
         title="krks.d3print: Add Drucker"
     />
