@@ -7,27 +7,23 @@
 <body>
   <metal:block fill-slot="content-core">
 
-    <div class="Container">
-      <div class="col-12 col-md-6">
-        <div class="card" style="width: 58rem;">
-          <img tal:attributes="src string:${context/absolute_url}/@@images/vorschaubild" class="card-img-top" alt="...">
-          <div class="card-body">
+    <div class="container px-lg-1">
+      <div class="row mx-lg-n1">
+        <div class="col py-1 px-lg-1">
+          <img tal:attributes="src string:${context/absolute_url}/@@images/vorschaubild" class="img-fluid" alt="Responsive image">
         </div>
-      </div>
-    </div>
-
-    <div class="Container">
-      <div class="row">
-
-        <div class="col-12 col-md-6">
+        <div class="col py-3 px-lg-5">
+          <div class="col">.</div>
+          <div class="col">.</div>
+          <div class="col">.</div>
+          <div class="col">.</div>
+          <div class="col">.</div>
+          <div class="col">.</div>
+          <div class="col">.</div>
           <button type="button" class="btn btn-primary">
-            <a tal:attributes="href string:${context/absolute_url}/@@download/printmodell/${context/printmodell/filename}" class="btn btn-primary">Herunterladen</a></button>
-
+            <a tal:attributes="href string:${context/absolute_url}/@@download/printmodell/${context/printmodell/filename}" class="btn btn-primary">Download</a></button>
           <button type="button" class="btn btn-success">
             <a class="btn btn-success" href="http://192.168.86.56:5001/" role="button">Drucken</a></button>
-
-          <button type="button" class="btn btn-danger">
-            <a class="btn btn-danger" href="http://0.0.0.0:8080/Test.Plone/3d-modelle" role="button">Abrechen</a></button>
         </div>
       </div>
     </div>

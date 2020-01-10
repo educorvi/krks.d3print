@@ -7,6 +7,14 @@
   -*- extra stuff goes here -*-
 
   <browser:page
+    name="druckerview"
+    for="Products.CMFCore.interfaces.IFolderish"
+    class=".druckerview.Druckerview"
+    template="druckerview.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
     name="print-view"
     for="*"
     class=".print_view.PrintView"
