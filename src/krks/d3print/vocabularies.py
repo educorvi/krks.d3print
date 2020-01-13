@@ -6,7 +6,8 @@ from plone import api
 @provider(IContextSourceBinder)
 def get_printers(context):
     terms = []
-    printers = api.content.find(portal_typ="Drucker")
+    printers = api.content.find(portal_type="Drucker")
+    # import pdb;pdb.set_trace()
     for i in printers:
         terms.append(SimpleVocabulary.createTerm(i.UID,i.UID,i.Title))
     return SimpleVocabulary(terms)
