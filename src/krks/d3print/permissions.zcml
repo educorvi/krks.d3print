@@ -7,6 +7,12 @@
   <!-- -*- extra stuff goes here -*- -->
 
     <permission
+        id="krks.d3print.AddGCodeDatei"
+        title="krks.d3print: Add GCodeDatei"
+    />
+
+
+    <permission
         id="krks.d3print.AddDruckobjekt"
         title="krks.d3print: Add Druckobjekt"
     />

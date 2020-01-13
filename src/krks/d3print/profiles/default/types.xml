@@ -5,4 +5,5 @@
   <object meta_type="Dexterity FTI" name="printer"/>
   <object meta_type="Dexterity FTI" name="Drucker"/>
   <object meta_type="Dexterity FTI" name="Druckobjekt"/>
+  <object meta_type="Dexterity FTI" name="GCode Datei"/>
 </object>

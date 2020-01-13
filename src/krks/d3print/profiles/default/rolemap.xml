@@ -3,6 +3,14 @@
   <permissions>
   <!-- -*- extra stuff goes here -*- -->
 
+    <permission name="krks.d3print: Add GCodeDatei" acquire="True">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+      <role name="Owner"/>
+      <role name="Contributor"/>
+    </permission>
+
+
     <permission name="krks.d3print: Add Druckobjekt" acquire="True">
       <role name="Manager"/>
       <role name="Site Administrator"/>
