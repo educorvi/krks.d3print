@@ -15,8 +15,8 @@
     />
 
   <browser:page
-    name="print-view"
-    for="*"
+    name="view"
+    for="krks.d3print.content.druckobjekt.IDruckobjekt"
     class=".print_view.PrintView"
     template="print_view.pt"
     permission="zope2.View"

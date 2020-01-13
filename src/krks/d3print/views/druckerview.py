@@ -36,6 +36,10 @@ class Druckerview(BrowserView):
         self.msg = _(u'A small message')
         return self.index()
 
+    def aktualisieren(self):
+        url=self.context.absolute_url()+'/druckerview'
+        return url
+
     def connect_printer(self):
 
         tooltemp = 'k.A'

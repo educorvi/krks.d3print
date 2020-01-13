@@ -6,98 +6,85 @@
       metal:use-macro="context/main_template/macros/master">
 <body>
   <metal:block fill-slot="content-core">
-    <h2 i18n:translate="">Sample View</h2>
-
-      <div tal:define="tempdata view/connect_printer" class="container">
-        <div class="col-12 col-md-6">
-          <div class="row">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Merkmal</th>
-                  <th scope="col">Ergebnis</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Tooltemperatur</td>
-                  <td tal:content="tempdata/tooltemp"></td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Betttemperatur</td>
-                  <td tal:content="tempdata/bedtemp"></td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>Leerfeld</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="container">
+    <div tal:define="tempdata view/connect_printer" class="container">
+      <div class="col-12 col-md-6">
         <div class="row">
-          <div class="col-12 col-md-6">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>Leerfeld</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        <div class="col-12 col-md-6">
-          <div class="row">
-            <button type="button" class="btn btn-danger">Aktualisieren</button>
-          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Eigenschagten</th>
+                <th scope="col">Aktuell</th>
+                <th scope="col">Ziel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">3</th>
+                <td>Status</td>
+                <td>Keine Funktion</td>
+                <td>Keine Funktion</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Tooltemperatur</td>
+                <td tal:content="tempdata/tooltemp"></td>
+                <td>Keine Funktion</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Betttemperatur</td>
+                <td tal:content="tempdata/bedtemp"></td>
+                <td>Keine Funktion</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-  </metal:block>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+              <th scope="col">#</th>
+                <th scope="col">Objektname</th>
+                <th scope="col">Bild</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>N/A</td>
+                <td>N/A</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <div class="col-12 col-md-6">
+        <div class="row">
+          <a href="" tal:attributes="href view/aktualisieren" type="button" role="button" class="btn btn-primary">Aktualisieren</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</metal:block>
 </body>
 </html>
