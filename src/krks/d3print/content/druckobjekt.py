@@ -17,8 +17,9 @@ from zope.interface import implementer
 class IDruckobjekt(model.Schema):
     """ Marker interface and Dexterity Python Schema for Druckobjekt
     """
-    printmodell = NamedBlobFile(title = u'gcode Datei Dowloaden')
-    vorschaubild = NamedBlobImage(title = u'Vorschaubild')
+    printmodell = NamedBlobFile(title = u"gcode Datei für Prusa")
+    printmodell2 = NamedBlobFile(title = u"gcode Datei für Artillity")
+    vorschaubild = NamedBlobImage(title = u"Vorschaubild")
     pdfdoku = NamedBlobFile(title = u'Dokumentation')
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:
