@@ -7,7 +7,7 @@
 <body>
   <metal:block fill-slot="content-core">
 
-    <div class="container px-lg-1">
+    <div class="container px-lg-1" tal:define="datei view/get_file">
       <div class="row mx-lg-n1">
         <div class="col py-1 px-lg-1">
           <img tal:attributes="src string:${context/absolute_url}/@@images/vorschaubild" class="img-fluid" alt="Responsive image">

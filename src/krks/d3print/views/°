@@ -62,7 +62,7 @@ class Druckerview(BrowserView):
         print(jobname)
         print(remainingtime)
 
-        remainingtime = "ca. "+str(remainingtime)+" Sekunden verbleibend"
+        remainingtime = "Ca. "+str(remainingtime)+" Sekunden verbleibend"
 
         if jobname == None:
             jobname = "Kein Druckauftrag"

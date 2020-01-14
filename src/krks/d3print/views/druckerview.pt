@@ -6,6 +6,33 @@
       metal:use-macro="context/main_template/macros/master">
 <body>
   <metal:block fill-slot="content-core">
+
+    <div tal:define="tempdata view/connect_printer" class="container">
+      <div class="col-12 col-md-6">
+        <div class="row">
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <!--  <th scope="row">3</th> -->
+                <td>Status</td>
+                <td tal:content="tempdata/state"></td>
+              </tr>
+              <tr>
+                <td>Druckauftrag</td>
+                <td tal:content="tempdata/jobname"></td>
+              </tr>
+              <tr>
+                <td>Verbleibend</td>
+                <td tal:content="tempdata/remainingtime"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
     <div tal:define="tempdata view/connect_printer" class="container">
       <div class="col-12 col-md-6">
         <div class="row">
@@ -13,18 +40,18 @@
             <thead>
               <tr>
                   <!-- <th scope="col">#</th> -->
-                <th scope="col">Eigenschagten</th>
+                <th scope="col">Eigenschaften</th>
                 <th scope="col">Aktuell</th>
                 <th scope="col">Ziel</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+                <!--<tr>-->
                 <!--  <th scope="row">3</th> -->
-                <td>Status</td>
-                <td>Keine Funktion</td>
-                <td>Keine Funktion</td>
-              </tr>
+                <!--<td>Status</td>-->
+                <!--<td tal:content="tempdata/state"></td>-->
+                <!--<td>Keine Funktion</td>-->
+                <!--</tr>-->
               <tr>
                   <!-- <th scope="row">2</th> -->
                 <td>Tooltemperatur</td>
@@ -43,6 +70,7 @@
       </div>
     </div>
 
+    
     <div class="container">
       <div class="row">
         <div class="col-12 col-md-6">
