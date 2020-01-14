@@ -12,7 +12,7 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">#</th>
+                  <!-- <th scope="col">#</th> -->
                 <th scope="col">Eigenschagten</th>
                 <th scope="col">Aktuell</th>
                 <th scope="col">Ziel</th>
@@ -20,22 +20,22 @@
             </thead>
             <tbody>
               <tr>
-                <th scope="row">3</th>
+                <!--  <th scope="row">3</th> -->
                 <td>Status</td>
                 <td>Keine Funktion</td>
                 <td>Keine Funktion</td>
               </tr>
               <tr>
-                <th scope="row">2</th>
+                  <!-- <th scope="row">2</th> -->
                 <td>Tooltemperatur</td>
                 <td tal:content="tempdata/tooltemp"></td>
-                <td>Keine Funktion</td>
+                <td tal:content="tempdata/tooltemp_target"></td>
               </tr>
               <tr>
-                <th scope="row">3</th>
+                  <!-- <th scope="row">3</th> -->
                 <td>Betttemperatur</td>
                 <td tal:content="tempdata/bedtemp"></td>
-                <td>Keine Funktion</td>
+                <td tal:content="tempdata/bedtemp_target"></td>
               </tr>
             </tbody>
           </table>

@@ -44,6 +44,8 @@ class Druckerview(BrowserView):
 
         tooltemp = 'k.A'
         bedtemp = 'k.A'
+        tooltemp_target = 'k.A.'
+        bedtemp_target = 'k.A.'
 
         result = requests.post('http://192.168.86.56:5001/api/connection', headers=post_headers, json=connect_json)
         print(result.status_code)
@@ -57,7 +59,9 @@ class Druckerview(BrowserView):
                 if temp:
                     tooltemp = temp['tool0']['actual']
                     bedtemp = temp['bed']['actual']
+                    tooltemp_target = temp['tool0']['target']
+                    bedtemp_target = temp['bed']['target']
 
         else:
             print("Error")
-        return {'tooltemp':tooltemp, 'bedtemp':bedtemp}
+        return {'tooltemp':tooltemp, 'bedtemp':bedtemp, 'tooltemp_target':tooltemp_target, 'bedtemp_target':bedtemp_target}
