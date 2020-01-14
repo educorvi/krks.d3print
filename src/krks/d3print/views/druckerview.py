@@ -46,11 +46,16 @@ class Druckerview(BrowserView):
         bedtemp = 'k.A'
         tooltemp_target = 'k.A.'
         bedtemp_target = 'k.A.'
+        
+        connectionresult = requests.get('http://192.168.86.56:5001/api/connection', headers=get_headers)
+        connectiondict = connectionresult.json()
+        if connectiondict:
+            result1 = connectiondict.get("current")
+            if result1:
+                state = result1['state']
 
-        result = requests.post('http://192.168.86.56:5001/api/connection', headers=post_headers, json=connect_json)
-        print(result.status_code)
-        if result.status_code == 204:
-            sleep(5)
+        if state == "Operational":
+            
             data = requests.get('http://192.168.86.56:5001/api/printer', headers=get_headers)
             datadict = data.json()
 
@@ -61,7 +66,26 @@ class Druckerview(BrowserView):
                     bedtemp = temp['bed']['actual']
                     tooltemp_target = temp['tool0']['target']
                     bedtemp_target = temp['bed']['target']
+                return {'tooltemp':tooltemp, 'bedtemp':bedtemp, 'tooltemp_target':tooltemp_target, 'bedtemp_target':bedtemp_target}
+                    
 
         else:
-            print("Error")
-        return {'tooltemp':tooltemp, 'bedtemp':bedtemp, 'tooltemp_target':tooltemp_target, 'bedtemp_target':bedtemp_target}
+
+            result = requests.post('http://192.168.86.56:5001/api/connection', headers=post_headers, json=connect_json)
+            print(result.status_code)
+            if result.status_code == 204:
+                sleep(5)
+                data = requests.get('http://192.168.86.56:5001/api/printer', headers=get_headers)
+                datadict = data.json()
+
+                if datadict:
+                    temp = datadict.get("temperature")
+                    if temp:
+                        tooltemp = temp['tool0']['actual']
+                        bedtemp = temp['bed']['actual']
+                        tooltemp_target = temp['tool0']['target']
+                        bedtemp_target = temp['bed']['target']
+
+            else:
+                print("Error")
+            return {'tooltemp':tooltemp, 'bedtemp':bedtemp, 'tooltemp_target':tooltemp_target, 'bedtemp_target':bedtemp_target}
