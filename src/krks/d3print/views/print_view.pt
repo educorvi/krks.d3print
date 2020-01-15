@@ -7,23 +7,19 @@
 <body>
   <metal:block fill-slot="content-core">
 
-    <div class="container px-lg-1" tal:define="datei view/get_file">
-      <div class="row mx-lg-n1">
-        <div class="col py-1 px-lg-1">
+    <div class="container" tal:define="files view/get_files">
+      <div class="row">
+        <div class="col-12 col-md-6">
           <img tal:attributes="src string:${context/absolute_url}/@@images/vorschaubild" class="img-fluid" alt="Responsive image">
         </div>
-        <div class="col py-3 px-lg-5">
-          <div class="col">.</div>
-          <div class="col">.</div>
-          <div class="col">.</div>
-          <div class="col">.</div>
-          <div class="col">.</div>
-          <div class="col">.</div>
-          <div class="col">.</div>
-          <button type="button" class="btn btn-primary">
-            <a tal:attributes="href string:${context/absolute_url}/@@download/printmodell/${context/printmodell/filename}" class="btn btn-primary">Download</a></button>
-          <button type="button" class="btn btn-success">
-            <a class="btn btn-success" href="http://192.168.86.56:5001/" role="button">Drucken</a></button>
+        <div class="col-12 col-md-6">
+            <ul>
+                <li tal:repeat="file files">
+                    <span tal:content="file/title"></span> 
+                    (<span tal:content="file/druckername"></span>)
+                    <a href="" type="button" class="btn btn-success" role="button" tal:attributes="href file/url">Drucken</a>
+                </li>
+            </ul>
         </div>
       </div>
     </div>

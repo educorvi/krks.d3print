@@ -13,10 +13,12 @@ from krks.d3print.vocabularies import get_printers
 
 from krks.d3print import _
 
+from plone.namedfile.field import NamedBlobFile
 
 class IGCodeDatei(model.Schema):
     """ Marker interface and Dexterity Python Schema for GCodeDatei
     """
+    printmodell = NamedBlobFile(title="Druckdatei hochladen")
 
     drucker = schema.Choice(
         title=_(u'Auswahl des Druckers'),
