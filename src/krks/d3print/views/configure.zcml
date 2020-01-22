@@ -7,6 +7,14 @@
   -*- extra stuff goes here -*-
 
   <browser:page
+    name="error-view"
+    for="Products.CMFCore.interfaces.IFolderish"
+    class=".error_view.ErrorView"
+    template="error_view.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
     name="upload_view"
     for="krks.d3print.content.g_code_datei.IGCodeDatei"
     class=".upload_view.UploadView"
