@@ -52,7 +52,7 @@ class Druckerview(BrowserView):
 
 
         try:
-            response = requests.get('https://google.de', timeout=1)
+            response = requests.get('http://192.168.86.56', timeout=1)
         except Timeout:
             print('The request timed out')
             return self.request.redirect(self.context.absolute_url()+'/error_view')
