@@ -55,8 +55,9 @@ class Druckerview(BrowserView):
             response = requests.get('http://192.168.86.56', timeout=1)
         except Timeout:
             print('The request timed out')
-            return self.request.redirect(self.context.absolute_url()+'/error_view')
+            #return self.request.redirect(self.context.absolute_url()+'/error_view')
             #return {'tooltemp':tooltemp, 'bedtemp':bedtemp, 'tooltemp_target':tooltemp_target, 'bedtemp_target':bedtemp_target, 'state':state}
+            return None
         else:
             print('The request did not time out')
 
