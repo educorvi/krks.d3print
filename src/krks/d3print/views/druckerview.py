@@ -38,10 +38,10 @@ class Druckerview(BrowserView):
         # Implement your own actions:
         self.msg = _(u'A small message')
         try:
-            response = requests.get('http://192.168.86.99', timeout=1)
+            response = requests.get('http://192.168.86.56:5001', timeout=1)
         except Timeout:
             print('The request timed out')
-            import pdb; pdb.set_trace()
+            #import pdb; pdb.set_trace()
             return self.request.response.redirect(self.context.absolute_url()+'/error-view')
         return self.index()
 
