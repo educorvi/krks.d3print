@@ -37,6 +37,12 @@ class Druckerview(BrowserView):
     def __call__(self):
         # Implement your own actions:
         self.msg = _(u'A small message')
+        try:
+            response = requests.get('http://192.168.86.99', timeout=1)
+        except Timeout:
+            print('The request timed out')
+            import pdb; pdb.set_trace()
+            return self.request.response.redirect(self.context.absolute_url()+'/error-view')
         return self.index()
 
     def aktualisieren(self):
@@ -51,13 +57,9 @@ class Druckerview(BrowserView):
         bedtemp_target = 'k.A.'
         state = 'k.A.'
 
-        try:
-            response = requests.get('http://192.168.86.56:5001', timeout=1)
-        except Timeout:
-            print('The request timed out')
-            # return self.request.redirect(self.context.absolute_url()+'/error_view')
-            # return {'tooltemp':tooltemp, 'bedtemp':bedtemp, 'tooltemp_target':tooltemp_target, 'bedtemp_target':bedtemp_target, 'state':state}
-            return None
+        if 1 == 2:
+            print(u'Seppo ist klug')
+
         else:
             print('The request did not time out')
 

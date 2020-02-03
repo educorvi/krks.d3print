@@ -12,6 +12,7 @@ class ErrorView(BrowserView):
     # template = ViewPageTemplateFile('error_view.pt')
 
     def __call__(self):
+        import pdb;pdb.set_trace()
         # Implement your own actions:
         self.msg = _(u'A small message')
         return self.index()
