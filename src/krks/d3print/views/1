@@ -53,7 +53,7 @@ class Druckerview(BrowserView):
 
         try:
             response = requests.get('http://192.168.86.56:5001', timeout=1)
-            #import pdb; pdb.set_trace()
+            import pdb; pdb.set_trace()
         except Timeout:
             print('The request timed out')
             # return self.request.redirect(self.context.absolute_url()+'/error_view')
@@ -69,7 +69,7 @@ class Druckerview(BrowserView):
                 if jobstatezwischenergebnis1:
                     jobname = jobstatezwischenergebnis1['file']['name']
 
-                    #import pdb; pdb.set_trace()
+                    import pdb; pdb.set_trace()
 
                 jobstatezwischenergebnis2 = jobstatedict.get("progress")
                 if jobstatezwischenergebnis2:
@@ -125,8 +125,6 @@ class Druckerview(BrowserView):
                             bedtemp = temp['bed']['actual']
                             tooltemp_target = temp['tool0']['target']
                             bedtemp_target = temp['bed']['target']
-
-                            #import pdb; pdb.set_trace()
 
                     connectionresult = requests.get('http://192.168.86.56:5001/api/connection', headers=get_headers)
                     connectiondict = connectionresult.json()
