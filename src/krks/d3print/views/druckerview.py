@@ -37,6 +37,12 @@ class Druckerview(BrowserView):
     def __call__(self):
         # Implement your own actions:
         self.msg = _(u'A small message')
+        try:
+            response = requests.get('http://192.168.86.56:5001', timeout=1)
+        except Timeout:
+            print('The request timed out')
+            #import pdb; pdb.set_trace()
+            return self.request.response.redirect(self.context.absolute_url()+'/error-view')
         return self.index()
 
     def aktualisieren(self):
@@ -51,45 +57,61 @@ class Druckerview(BrowserView):
         bedtemp_target = 'k.A.'
         state = 'k.A.'
 
-        try:
-            response = requests.get('http://192.168.86.56:5001', timeout=1)
-        except Timeout:
-            print('The request timed out')
-            # return self.request.redirect(self.context.absolute_url()+'/error_view')
-            # return {'tooltemp':tooltemp, 'bedtemp':bedtemp, 'tooltemp_target':tooltemp_target, 'bedtemp_target':bedtemp_target, 'state':state}
-            return None
+        print(u'Seppo ist klug')
+
+        print('The request did not time out')
+
+        jobstateresult = requests.get('http://192.168.86.56:5001/api/job', headers=get_headers, timeout=2)
+        jobstatedict = jobstateresult.json()
+        if jobstateresult:
+            jobstatezwischenergebnis1 = jobstatedict.get("job")
+            if jobstatezwischenergebnis1:
+                jobname = jobstatezwischenergebnis1['file']['name']
+
+            jobstatezwischenergebnis2 = jobstatedict.get("progress")
+            if jobstatezwischenergebnis2:
+                remainingtime = jobstatezwischenergebnis2['printTimeLeft']
+
+        print(jobname)
+        print(remainingtime)
+
+        remainingtime = "ca. " + str(remainingtime) + " Sekunden verbleibend"
+
+        if jobname == None:
+            jobname = "Kein Druckauftrag"
+            remainingtime = "Kein Druckauftrag"
+
+        connectionresult = requests.get('http://192.168.86.56:5001/api/connection', headers=get_headers, timeout=2)
+        connectiondict = connectionresult.json()
+        if connectiondict:
+            result1 = connectiondict.get("current")
+            if result1:
+                state = result1['state']
+
+        if state == "Operational" or state == "Printing":
+
+            data = requests.get('http://192.168.86.56:5001/api/printer', headers=get_headers)
+            datadict = data.json()
+
+            if datadict:
+                temp = datadict.get("temperature")
+                if temp:
+                    tooltemp = temp['tool0']['actual']
+                    bedtemp = temp['bed']['actual']
+                    tooltemp_target = temp['tool0']['target']
+                    bedtemp_target = temp['bed']['target']
+                return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target,
+                            'bedtemp_target': bedtemp_target, 'state': state, 'jobname': jobname,
+                            'remainingtime': remainingtime}
+
+
         else:
-            print('The request did not time out')
 
-            jobstateresult = requests.get('http://192.168.86.56:5001/api/job', headers=get_headers, timeout=2)
-            jobstatedict = jobstateresult.json()
-            if jobstateresult:
-                jobstatezwischenergebnis1 = jobstatedict.get("job")
-                if jobstatezwischenergebnis1:
-                    jobname = jobstatezwischenergebnis1['file']['name']
-
-                jobstatezwischenergebnis2 = jobstatedict.get("progress")
-                if jobstatezwischenergebnis2:
-                    remainingtime = jobstatezwischenergebnis2['printTimeLeft']
-
-            print(jobname)
-            print(remainingtime)
-
-            remainingtime = "ca. " + str(remainingtime) + " Sekunden verbleibend"
-
-            if jobname == None:
-                jobname = "Kein Druckauftrag"
-                remainingtime = "Kein Druckauftrag"
-
-            connectionresult = requests.get('http://192.168.86.56:5001/api/connection', headers=get_headers, timeout=2)
-            connectiondict = connectionresult.json()
-            if connectiondict:
-                result1 = connectiondict.get("current")
-                if result1:
-                    state = result1['state']
-
-            if state == "Operational" or state == "Printing":
-
+            result = requests.post('http://192.168.86.56:5001/api/connection', headers=post_headers,
+                                       json=connect_json)
+            print(result.status_code)
+            if result.status_code == 204:
+                sleep(5)
                 data = requests.get('http://192.168.86.56:5001/api/printer', headers=get_headers)
                 datadict = data.json()
 
@@ -100,37 +122,15 @@ class Druckerview(BrowserView):
                         bedtemp = temp['bed']['actual']
                         tooltemp_target = temp['tool0']['target']
                         bedtemp_target = temp['bed']['target']
-                    return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target,
-                            'bedtemp_target': bedtemp_target, 'state': state, 'jobname': jobname,
-                            'remainingtime': remainingtime}
 
+                connectionresult = requests.get('http://192.168.86.56:5001/api/connection', headers=get_headers)
+                connectiondict = connectionresult.json()
+                if connectiondict:
+                    result1 = connectiondict.get("current")
+                    if result1:
+                        state = result1['state']
 
             else:
-
-                result = requests.post('http://192.168.86.56:5001/api/connection', headers=post_headers,
-                                       json=connect_json)
-                print(result.status_code)
-                if result.status_code == 204:
-                    sleep(5)
-                    data = requests.get('http://192.168.86.56:5001/api/printer', headers=get_headers)
-                    datadict = data.json()
-
-                    if datadict:
-                        temp = datadict.get("temperature")
-                        if temp:
-                            tooltemp = temp['tool0']['actual']
-                            bedtemp = temp['bed']['actual']
-                            tooltemp_target = temp['tool0']['target']
-                            bedtemp_target = temp['bed']['target']
-
-                    connectionresult = requests.get('http://192.168.86.56:5001/api/connection', headers=get_headers)
-                    connectiondict = connectionresult.json()
-                    if connectiondict:
-                        result1 = connectiondict.get("current")
-                        if result1:
-                            state = result1['state']
-
-                else:
-                    print("Error")
-                return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target,
+                print("Error")
+            return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target,
                         'bedtemp_target': bedtemp_target, 'state': state}
