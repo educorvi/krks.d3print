@@ -41,7 +41,6 @@ class Druckerview(BrowserView):
             response = requests.get('http://192.168.86.56:5001', timeout=1)
         except Timeout:
             print('The request timed out')
-            #import pdb; pdb.set_trace()
             return self.request.response.redirect(self.context.absolute_url()+'/error-view')
         return self.index()
 
@@ -50,6 +49,9 @@ class Druckerview(BrowserView):
         return url
 
     def connect_printer(self):
+
+        ipaddresse = self.context.ipaddresse
+        httpip = ('http://'+ipaddresse)
 
         tooltemp = 'k.A'
         bedtemp = 'k.A'
@@ -61,7 +63,9 @@ class Druckerview(BrowserView):
 
         print('The request did not time out')
 
-        jobstateresult = requests.get('http://192.168.86.56:5001/api/job', headers=get_headers, timeout=2)
+        apicall = httpip+'/api/job'
+        tiberius = 'http://192.168.86.56:5001/api/job'
+        jobstateresult = requests.get(apicall, headers=get_headers, timeout=2)
         jobstatedict = jobstateresult.json()
         if jobstateresult:
             jobstatezwischenergebnis1 = jobstatedict.get("job")
@@ -100,9 +104,7 @@ class Druckerview(BrowserView):
                     bedtemp = temp['bed']['actual']
                     tooltemp_target = temp['tool0']['target']
                     bedtemp_target = temp['bed']['target']
-                return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target,
-                            'bedtemp_target': bedtemp_target, 'state': state, 'jobname': jobname,
-                            'remainingtime': remainingtime}
+                #return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target,'bedtemp_target': bedtemp_target, 'state': state, 'jobname': jobname, 'remainingtime': remainingtime}
 
 
         else:
@@ -132,5 +134,7 @@ class Druckerview(BrowserView):
 
             else:
                 print("Error")
+
             return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target,
-                        'bedtemp_target': bedtemp_target, 'state': state}
+                            'bedtemp_target': bedtemp_target, 'state': state, 'jobname': jobname,
+                            'remainingtime': remainingtime}
