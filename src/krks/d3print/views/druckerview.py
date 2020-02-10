@@ -17,7 +17,7 @@ class Druckerview(BrowserView):
         print("Call me maybe")
         self.msg = _(u'A small message')
         try:
-            response = requests.get('http://192.168.86.56:5001', timeout=1)
+            response = requests.get('http://'+self.context.ipaddresse+':'+self.context.port, timeout=1)
         except Timeout:
             print('The request timed out')
             return self.request.response.redirect(self.context.absolute_url()+'/error-view')
@@ -25,21 +25,24 @@ class Druckerview(BrowserView):
 
 # Begin Header definition section
     def post_headers(self):
+        host = self.context.ipaddresse+':'+self.context.port
         post_headers = {
-            'Host': self.context.ipaddresse,
+            'Host': self.context.ipaddresse+':'+self.context.port,
             'X-Api-Key': '02AC33DA679D4A93BA6BF9EAB1CF01CC',  # Aus Content-Objekt
             'Content-Type': 'application/json'  # konstant
             }
         return post_headers
     
     def get_headers(self):
+        host = self.context.ipaddresse+':'+self.context.port
         get_headers = {
-            'Host': self.context.ipaddresse,
+            'Host': self.context.ipaddresse+':'+self.context.port,
             'X-Api-Key': '02AC33DA679D4A93BA6BF9EAB1CF01CC',  # Aus Content-Objekt
             }
         return get_headers
 
     def connect_json(self):
+        host = self.context.ipaddresse+':'+self.context.port
         connect_json = {
             'command': 'connect',
             'port': '/dev/ttyUSB0',  # Aus Content-Objekt (Drop-Down)
@@ -58,7 +61,7 @@ class Druckerview(BrowserView):
 
     def connect_printer(self):
 
-        ipaddresse = self.context.ipaddresse
+        ipaddresse = self.context.ipaddresse+':'+self.context.port
         httpip = ('http://'+ipaddresse)
 
         apicall_job = httpip+'/api/job'
@@ -134,7 +137,7 @@ class Druckerview(BrowserView):
                         tooltemp_target = temp['tool0']['target']
                         bedtemp_target = temp['bed']['target']
 
-                connectionresult = requests.get('http://192.168.86.56:5001/api/connection', headers=self.get_headers())
+                connectionresult = requests.get(httpip+'/api/connection', headers=self.get_headers())
                 connectiondict = connectionresult.json()
                 if connectiondict:
                     result1 = connectiondict.get("current")
