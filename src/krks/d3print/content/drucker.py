@@ -17,6 +17,7 @@ class IDrucker(model.Schema):
     """ Marker interface and Dexterity Python Schema for Drucker
     """
     ipaddresse = schema.TextLine(title ="IP-Addresse")
+    port = schema.TextLine(title ="Portnummer")
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:
 
