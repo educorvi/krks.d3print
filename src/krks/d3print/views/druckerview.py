@@ -28,7 +28,7 @@ class Druckerview(BrowserView):
         host = self.context.ipaddresse+':'+self.context.port
         post_headers = {
             'Host': self.context.ipaddresse+':'+self.context.port,
-            'X-Api-Key': '02AC33DA679D4A93BA6BF9EAB1CF01CC',  # Aus Content-Objekt
+            'X-Api-Key': self.context.apikey,  # Aus Content-Objekt
             'Content-Type': 'application/json'  # konstant
             }
         return post_headers
@@ -37,7 +37,7 @@ class Druckerview(BrowserView):
         host = self.context.ipaddresse+':'+self.context.port
         get_headers = {
             'Host': self.context.ipaddresse+':'+self.context.port,
-            'X-Api-Key': '02AC33DA679D4A93BA6BF9EAB1CF01CC',  # Aus Content-Objekt
+            'X-Api-Key': self.context.apikey,  # Aus Content-Objekt
             }
         return get_headers
 

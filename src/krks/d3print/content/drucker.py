@@ -18,6 +18,7 @@ class IDrucker(model.Schema):
     """
     ipaddresse = schema.TextLine(title ="IP-Addresse")
     port = schema.TextLine(title ="Portnummer")
+    apikey = schema.TextLine(title ="API-Key")
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:
 
