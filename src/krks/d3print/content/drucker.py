@@ -40,7 +40,6 @@ class IDrucker(model.Schema):
         return True
 
 
-
     ipaddresse = schema.TextLine(title ="IP-Adresse", constraint=ipaddresse_constraint)
     port = schema.TextLine(title ="Portnummer")
     apikey = schema.TextLine(title ="API-Key")
