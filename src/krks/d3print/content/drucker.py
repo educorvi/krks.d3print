@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# from plone.app.textfield import RichText
+from plone.app.textfield import RichText
 # from plone.autoform import directives
 from plone.dexterity.content import Container
 # from plone.namedfile import field as namedfile
@@ -16,6 +16,7 @@ from requests.exceptions import Timeout
 
 import os
 from plone.namedfile.field import NamedBlobImage
+from plone.namedfile.field import NamedBlobFile
 
 # from krks.d3print import _
 
@@ -41,13 +42,21 @@ class IDrucker(model.Schema):
         return True
 
 
-    ipaddresse = schema.TextLine(title ="IP-Adresse", constraint=ipaddresse_constraint)
-    port = schema.TextLine(title ="Portnummer")
-    apikey = schema.TextLine(title ="API-Key")
+    ipaddresse = schema.TextLine(title="IP-Adresse", constraint=ipaddresse_constraint)
+    port = schema.TextLine(title="Portnummer")
+    apikey = schema.TextLine(title="API-Key")
     druckerbild = NamedBlobImage(
-            title="Ein Bild des Drucker",
+            title="Druckerbild",
             required=False
     ) 
+    handbuch = NamedBlobFile(
+            title="Handbuch des Druckers",
+            required=False 
+    )
+    haupttext = RichText(
+            title="Wichtige Hinweise zum Drucker",
+            required=False
+    )
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:
 
