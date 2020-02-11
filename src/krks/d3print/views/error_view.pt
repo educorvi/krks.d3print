@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="krks.d3print"
+      metal:use-macro="context/main_template/macros/master">
+<body>
+  <metal:block fill-slot="content-core">
+      <h2 i18n:translate="">Operation completed, but that doesn't mean it's error free.</h2>
+      <p>Es ist leider ein Fehler aufgetreten.<br>
+      Es konnte keine Verbindung zu krks.d3print aufgebaut werden.<br>
+      Bitte schließen Sie krks.d3print an den Strom sowie das Netzwerk an und überprüfen Sie, ob der Drucker ebenfalls verbunden und eingeschaltet ist.</p>
+  </metal:block>
+</body>
+</html>
