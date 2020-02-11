@@ -9,6 +9,12 @@ from plone.supermodel import model
 from zope import schema
 from zope.interface import implementer
 
+from zope.interface import Invalid
+
+import requests
+from requests.exceptions import Timeout
+
+import os
 
 # from krks.d3print import _
 
@@ -16,7 +22,27 @@ from zope.interface import implementer
 class IDrucker(model.Schema):
     """ Marker interface and Dexterity Python Schema for Drucker
     """
-    ipaddresse = schema.TextLine(title ="IP-Addresse")
+
+    def reachable(ipaddresse):
+        hostname = ipaddresse
+        response = os.system("ping -c 1 " + hostname)
+
+        if respose == 0:
+            return True 
+        return False
+
+    def ipaddresse_constraint(ipaddresse):
+        hostname = ipaddresse
+        response = os.system("ping -c 1 " + hostname)
+
+        if response != 0:
+            raise Invalid(u'Diese IP-Adresse ist im Netzwerk leider nicht erreichbar. Bitte vergewissern Sie sich dass krks.d3print angeschlossen und mit dem Netzwerk verbunden ist, und dass Sie die richtige IP-Adresse eingegeben haben.')
+        return True
+
+
+    ipaddresse = schema.TextLine(title ="IP-Adresse", constraint=ipaddresse_constraint)
+    port = schema.TextLine(title ="Portnummer")
+    apikey = schema.TextLine(title ="API-Key")
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:
 
