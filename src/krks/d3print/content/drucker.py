@@ -15,6 +15,7 @@ import requests
 from requests.exceptions import Timeout
 
 import os
+from plone.namedfile.field import NamedBlobImage
 
 # from krks.d3print import _
 
@@ -43,6 +44,10 @@ class IDrucker(model.Schema):
     ipaddresse = schema.TextLine(title ="IP-Adresse", constraint=ipaddresse_constraint)
     port = schema.TextLine(title ="Portnummer")
     apikey = schema.TextLine(title ="API-Key")
+    druckerbild = NamedBlobImage(
+            title="Ein Bild des Drucker",
+            required=False
+    ) 
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:
 
