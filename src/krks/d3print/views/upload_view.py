@@ -30,7 +30,7 @@ class UploadView(BrowserView):
         #Informationen muessen aus Printer-Objekt bezogen werden
         url='http://192.168.86.56:5001/api/files/{}'.format('local')
         #URL?
-        payload={'select': 'true','print': 'false' }
+        payload={'select': 'true','print': 'true' }
         header={'X-Api-Key': '02AC33DA679D4A93BA6BF9EAB1CF01CC' }
         response = requests.post(url, files=fle,data=payload,headers=header)
         print(response)

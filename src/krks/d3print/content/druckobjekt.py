@@ -18,9 +18,8 @@ class IDruckobjekt(model.Schema):
     """ Marker interface and Dexterity Python Schema for Druckobjekt
     """
     vorschaubild = NamedBlobImage(title = u"Vorschaubild")
-    druckobjekthaupttext = RichText(
+    druckobjekthaupttext = schema.Text(
             title="Wichtige Informationen zum Druckobjekt",
-            output_mime_type='text/x-html',
             required=False)
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:

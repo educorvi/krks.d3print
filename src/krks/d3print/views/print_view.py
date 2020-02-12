@@ -49,5 +49,5 @@ class PrintView(BrowserView):
         return pdfdoku
 
     def druckobjekthaupttext(self):
-        druckobjekthaupttext = self.context.druckobjekthaupttext.output
+        druckobjekthaupttext = self.context.druckobjekthaupttext
         return druckobjekthaupttext
