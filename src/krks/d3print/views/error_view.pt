@@ -10,6 +10,9 @@
       <p>Es ist leider ein Fehler aufgetreten.<br>
       Es konnte keine Verbindung zu krks.d3print aufgebaut werden.<br>
       Bitte schließen Sie krks.d3print an den Strom sowie das Netzwerk an und überprüfen Sie, ob der Drucker ebenfalls verbunden und eingeschaltet ist.</p>
+
+  <iframe width="90%" height="400" src="asciiquarium.com"/>
+
   </metal:block>
 </body>
 </html>

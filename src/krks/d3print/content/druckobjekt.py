@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# from plone.app.textfield import RichText
+from plone.app.textfield import RichText
 # from plone.autoform import directives
 from plone.dexterity.content import Container
 # from plone.namedfile import field as namedfile
@@ -20,6 +20,7 @@ class IDruckobjekt(model.Schema):
     vorschaubild = NamedBlobImage(title = u"Vorschaubild")
     druckobjekthaupttext = RichText(
             title="Wichtige Informationen zum Druckobjekt",
+            output_mime_type='text/x-html',
             required=False)
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:

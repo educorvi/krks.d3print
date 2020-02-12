@@ -5,6 +5,7 @@ from krks.d3print import _
 from Products.Five.browser import BrowserView
 
 from requests.exceptions import Timeout
+from plone import api
 
 # from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -16,12 +17,23 @@ class Druckerview(BrowserView):
     def __call__(self):
         print("Call me maybe")
         self.msg = _(u'A small message')
+        self.mygcodes = self.get_gcodes()
         try:
             response = requests.get('http://'+self.context.ipaddresse+':'+self.context.port, timeout=1)
         except Timeout:
             print('The request timed out')
             return self.request.response.redirect(self.context.absolute_url()+'/error-view')
         return self.index()
+
+    def get_gcodes(self):
+        mygcodes = []
+        all_gcodes = api.content.find(portal_type="GCode Datei")
+        for i in all_gcodes:
+            obj = i.getObject()
+            if obj.drucker == self.context.UID():
+                mygcodes.append(obj)
+        print(mygcodes)
+        return mygcodes
 
 # Begin Header definition section
     def post_headers(self):

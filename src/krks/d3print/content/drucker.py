@@ -20,31 +20,30 @@ from plone.namedfile.field import NamedBlobFile
 
 # from krks.d3print import _
 
+class NotReachable(schema.ValidationError):
+    """Diese IP-Adresse ist im Netzwerk leider nicht erreichbar. Bitte vergewissern Sie sich dass krks.d3print angeschlossen und mit dem Netzwerk verbunden ist, und dass Sie die richtige IP-Adresse eingegeben haben."""
+
+def ipaddresse_constraint(ipaddresse):
+    hostname = ipaddresse
+    response = os.system("ping -c 1 " + hostname)
+
+    if response != 0:
+        raise NotReachable
+    return True
 
 class IDrucker(model.Schema):
     """ Marker interface and Dexterity Python Schema for Drucker
     """
 
-    def reachable(ipaddresse):
-        hostname = ipaddresse
-        response = os.system("ping -c 1 " + hostname)
-
-        if respose == 0:
-            return True 
-        return False
-
-    def ipaddresse_constraint(ipaddresse):
-        hostname = ipaddresse
-        response = os.system("ping -c 1 " + hostname)
-
-        if response != 0:
-            raise Invalid(u'Diese IP-Adresse ist im Netzwerk leider nicht erreichbar. Bitte vergewissern Sie sich dass krks.d3print angeschlossen und mit dem Netzwerk verbunden ist, und dass Sie die richtige IP-Adresse eingegeben haben.')
-        return True
-
-
     ipaddresse = schema.TextLine(title="IP-Adresse", constraint=ipaddresse_constraint)
     port = schema.TextLine(title="Portnummer")
     apikey = schema.TextLine(title="API-Key")
+#    baudrate = schema.Choice(title="Baudrate",
+#                             default='auto',
+#                             vocabulary=baudrate_vocabulary)
+
+    #schnittstelle ...??
+
     druckerbild = NamedBlobImage(
             title="Druckerbild",
             required=False
