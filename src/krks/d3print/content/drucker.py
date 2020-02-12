@@ -18,7 +18,7 @@ import os
 from plone.namedfile.field import NamedBlobImage
 from plone.namedfile.field import NamedBlobFile
 
-# from krks.d3print import _
+from krks.d3print.vocabularies import baudrate_vocabulary
 
 class NotReachable(schema.ValidationError):
     """Diese IP-Adresse ist im Netzwerk leider nicht erreichbar. Bitte vergewissern Sie sich dass krks.d3print angeschlossen und mit dem Netzwerk verbunden ist, und dass Sie die richtige IP-Adresse eingegeben haben."""
@@ -38,9 +38,9 @@ class IDrucker(model.Schema):
     ipaddresse = schema.TextLine(title="IP-Adresse", constraint=ipaddresse_constraint)
     port = schema.TextLine(title="Portnummer")
     apikey = schema.TextLine(title="API-Key")
-#    baudrate = schema.Choice(title="Baudrate",
-#                             default='auto',
-#                             vocabulary=baudrate_vocabulary)
+    baudrate = schema.Choice(title="Baudrate",
+                             default='AUTO',
+                             vocabulary=baudrate_vocabulary)
 
     #schnittstelle ...??
 

@@ -55,10 +55,11 @@ class Druckerview(BrowserView):
 
     def connect_json(self):
         host = self.context.ipaddresse+':'+self.context.port
+        baudrate_context = self.context.baudrate
         connect_json = {
             'command': 'connect',
             'port': '/dev/ttyUSB0',  # Aus Content-Objekt (Drop-Down)
-            'baudrate': 250000,  # Aus Content-Objekt (Drop-Down)
+            'baudrate': baudrate_context,  # Aus Content-Objekt (Drop-Down)
             'printerProfile': '_default',
             'save': 'true',
             'autoconnect': 'true'
