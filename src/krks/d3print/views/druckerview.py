@@ -35,6 +35,14 @@ class Druckerview(BrowserView):
         print(mygcodes)
         return mygcodes
 
+
+    # Preparing get_bilder
+    
+#    def get_bilder(self):
+#        bilder = self.context.ListFolderContents(
+#                contentFilter = {portal_type="Image"}
+#                )
+
 # Begin Header definition section
     def post_headers(self):
         host = self.context.ipaddresse+':'+self.context.port
