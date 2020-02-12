@@ -160,6 +160,4 @@ class Druckerview(BrowserView):
             else:
                 print("Error")
 
-            return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target,
-                            'bedtemp_target': bedtemp_target, 'state': state, 'jobname': jobname,
-                            'remainingtime': remainingtime}
+        return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target, 'bedtemp_target': bedtemp_target, 'state': state, 'jobname': jobname, 'remainingtime': remainingtime}
