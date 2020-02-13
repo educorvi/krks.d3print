@@ -7,6 +7,13 @@
 <body>
   <metal:block fill-slot="content-core">
 
+
+      <div class="col-12 col-md-6">
+        <div class="row">
+          <span tal:content="structure view/haupttext"></span>
+        </div>
+      </div>
+
     <div tal:define="tempdata view/connect_printer" class="container">
       <div class="col-12 col-md-6">
         <div class="row">

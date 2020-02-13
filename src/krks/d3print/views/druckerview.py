@@ -80,6 +80,10 @@ class Druckerview(BrowserView):
         url = self.context.absolute_url() + '/druckerview'
         return url
 
+    def haupttext(self):
+        haupttext = self.context.haupttext
+        return haupttext
+
     def connect_printer(self):
 
         ipaddresse = self.context.ipaddresse+':'+self.context.port

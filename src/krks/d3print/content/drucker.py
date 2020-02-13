@@ -52,7 +52,7 @@ class IDrucker(model.Schema):
             title="Handbuch des Druckers",
             required=False 
     )
-    haupttext = RichText(
+    haupttext = schema.Text(
             title="Wichtige Hinweise zum Drucker",
             required=False
     )
