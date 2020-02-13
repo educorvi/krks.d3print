@@ -14,6 +14,13 @@
         </div>
       </div>
 
+
+      <div class="col-12 col-md-6">
+        <div class="row">
+          <img src="structure view/druckerbild">
+        </div>
+      </div>
+
     <div tal:define="tempdata view/connect_printer" class="container">
       <div class="col-12 col-md-6">
         <div class="row">

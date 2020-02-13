@@ -84,6 +84,10 @@ class Druckerview(BrowserView):
         haupttext = self.context.haupttext
         return haupttext
 
+    def druckerbild(self):
+        druckerbild = self.context.druckerbild
+        return druckerbild
+
     def connect_printer(self):
 
         ipaddresse = self.context.ipaddresse+':'+self.context.port
