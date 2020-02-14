@@ -85,8 +85,12 @@ class Druckerview(BrowserView):
         return haupttext
 
     def druckerbild(self):
+        url = ''
         druckerbild = self.context.druckerbild
-        return druckerbild
+        if druckerbild:
+            url = '%s/@@images/druckerbild/large' %self.context.absolute_url()
+            #url = self.context.absolute_url()+'/@@images/druckerbild'
+        return url 
 
     def connect_printer(self):
 
