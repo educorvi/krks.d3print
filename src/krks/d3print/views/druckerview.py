@@ -30,9 +30,13 @@ class Druckerview(BrowserView):
         all_gcodes = api.content.find(portal_type="GCode Datei")
         for i in all_gcodes:
             obj = i.getObject()
+            modell = {}
             if obj.drucker == self.context.UID():
-                mygcodes.append(obj)
-        print(mygcodes)
+                parentobj = obj.aq_inner.aq_parent
+                modell['title'] = parentobj.title
+                modell['vorschaubild'] = parentobj.absolute_url()+"/@@images/vorschaubild/tile"
+                modell['url'] = parentobj.absolute_url()
+                mygcodes.append(modell)
         return mygcodes
 
 
@@ -91,6 +95,20 @@ class Druckerview(BrowserView):
             url = '%s/@@images/druckerbild/large' %self.context.absolute_url()
             #url = self.context.absolute_url()+'/@@images/druckerbild'
         return url 
+
+    def handbuch(self):
+        url = ''
+        handbuch = self.context.handbuch
+        if handbuch:
+            url = '%s/@@download/handbuch' %self.context.absolute_url()
+            #url = self.context.absolute_url()+'/@@download/handbuch'
+        return url
+
+    def filename(self):
+        filename = ''
+        if self.context.handbuch:
+            filename = self.context.handbuch.filename
+        return filename
 
     def connect_printer(self):
 

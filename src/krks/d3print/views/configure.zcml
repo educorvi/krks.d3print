@@ -22,7 +22,7 @@
     />
 
   <browser:page
-    name="druckerview"
+    name="drucker-view"
     for="Products.CMFCore.interfaces.IFolderish"
     class=".druckerview.Druckerview"
     template="druckerview.pt"

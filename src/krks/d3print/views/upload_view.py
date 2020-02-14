@@ -37,6 +37,6 @@ class UploadView(BrowserView):
         response = requests.post(url, files=fle,data=payload,headers=header)
         print(response)
 
-        url = printer.absolute_url()+'/druckerview'
+        url = printer.absolute_url()+'/drucker-view'
         
         return self.request.response.redirect(url)
