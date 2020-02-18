@@ -81,7 +81,7 @@ class Druckerview(BrowserView):
 
 
     def aktualisieren(self):
-        url = self.context.absolute_url() + '/druckerview'
+        url = self.context.absolute_url() + '/drucker-view'
         return url
 
     def haupttext(self):
