@@ -6,34 +6,25 @@
 krks.d3print
 ============
 
-Tell me what your product does
+Octoprint-Integration in Plone
 
 Features
 --------
 
-- Can be bullet points
-
-
-Examples
---------
-
-This add-on can be seen in action at the following sites:
-- Is there a page on the internet where everybody can see the features?
-
+- Add multiple printers on one or multiple instances of OctoPrint or Servers running OctoPrint
+- View, manage and monitor all printers in Plone
+- Add as many printable objects as you want - Having multiple GCode-Files for the same Object (Maybe for different printers, with different settings or for different materials)? - You add as many GCODE-Files to the printable Object as needed
+- Print the GCODE-Files with one click directly from the Object-Overview
 
 Documentation
 -------------
 
-Full documentation for end users can be found in the "docs" folder, and is also available online at http://docs.plone.org/foo/bar
-
+You will be able to see our full documentation here on GitHub in the future, as soon as the project has been completed and the package is finally ready.
 
 Translations
 ------------
 
-This product has been translated into
-
-- Klingon (thanks, K'Plai)
-
+Currently, this product is only available in German, but it might be translated to English in the future.
 
 Installation
 ------------
@@ -63,8 +54,8 @@ Support
 -------
 
 If you are having issues, please let us know.
-We have a mailing list located at: project@example.com
-
+Feel free to open an issue at any time, or get in touch with me at:
+seppo.walther@educorvi.de
 
 License
 -------

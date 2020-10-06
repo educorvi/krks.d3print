@@ -11,6 +11,7 @@
       <div class="row">
         <div class="col-12 col-md-6">
           <img tal:attributes="src string:${context/absolute_url}/@@images/vorschaubild" class="img-fluid" alt="Responsive image">
+          <span tal:content="structure view/druckobjekthaupttext"></span>
         </div>
         <div class="col-12 col-md-6">
             <ul>

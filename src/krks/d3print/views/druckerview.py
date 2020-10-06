@@ -5,6 +5,7 @@ from krks.d3print import _
 from Products.Five.browser import BrowserView
 
 from requests.exceptions import Timeout
+from plone import api
 
 # from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -16,12 +17,35 @@ class Druckerview(BrowserView):
     def __call__(self):
         print("Call me maybe")
         self.msg = _(u'A small message')
+        self.mygcodes = self.get_gcodes()
         try:
             response = requests.get('http://'+self.context.ipaddresse+':'+self.context.port, timeout=1)
         except Timeout:
             print('The request timed out')
             return self.request.response.redirect(self.context.absolute_url()+'/error-view')
         return self.index()
+
+    def get_gcodes(self):
+        mygcodes = []
+        all_gcodes = api.content.find(portal_type="GCode Datei")
+        for i in all_gcodes:
+            obj = i.getObject()
+            modell = {}
+            if obj.drucker == self.context.UID():
+                parentobj = obj.aq_inner.aq_parent
+                modell['title'] = parentobj.title
+                modell['vorschaubild'] = parentobj.absolute_url()+"/@@images/vorschaubild/tile"
+                modell['url'] = parentobj.absolute_url()
+                mygcodes.append(modell)
+        return mygcodes
+
+
+    # Preparing get_bilder
+    
+#    def get_bilder(self):
+#        bilder = self.context.ListFolderContents(
+#                contentFilter = {portal_type="Image"}
+#                )
 
 # Begin Header definition section
     def post_headers(self):
@@ -43,10 +67,11 @@ class Druckerview(BrowserView):
 
     def connect_json(self):
         host = self.context.ipaddresse+':'+self.context.port
+        baudrate_context = self.context.baudrate
         connect_json = {
             'command': 'connect',
             'port': '/dev/ttyUSB0',  # Aus Content-Objekt (Drop-Down)
-            'baudrate': 250000,  # Aus Content-Objekt (Drop-Down)
+            'baudrate': baudrate_context,  # Aus Content-Objekt (Drop-Down)
             'printerProfile': '_default',
             'save': 'true',
             'autoconnect': 'true'
@@ -56,8 +81,34 @@ class Druckerview(BrowserView):
 
 
     def aktualisieren(self):
-        url = self.context.absolute_url() + '/druckerview'
+        url = self.context.absolute_url() + '/drucker-view'
         return url
+
+    def haupttext(self):
+        haupttext = self.context.haupttext
+        return haupttext
+
+    def druckerbild(self):
+        url = ''
+        druckerbild = self.context.druckerbild
+        if druckerbild:
+            url = '%s/@@images/druckerbild/large' %self.context.absolute_url()
+            #url = self.context.absolute_url()+'/@@images/druckerbild'
+        return url 
+
+    def handbuch(self):
+        url = ''
+        handbuch = self.context.handbuch
+        if handbuch:
+            url = '%s/@@download/handbuch' %self.context.absolute_url()
+            #url = self.context.absolute_url()+'/@@download/handbuch'
+        return url
+
+    def filename(self):
+        filename = ''
+        if self.context.handbuch:
+            filename = self.context.handbuch.filename
+        return filename
 
     def connect_printer(self):
 
@@ -147,6 +198,4 @@ class Druckerview(BrowserView):
             else:
                 print("Error")
 
-            return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target,
-                            'bedtemp_target': bedtemp_target, 'state': state, 'jobname': jobname,
-                            'remainingtime': remainingtime}
+        return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target, 'bedtemp_target': bedtemp_target, 'state': state, 'jobname': jobname, 'remainingtime': remainingtime}

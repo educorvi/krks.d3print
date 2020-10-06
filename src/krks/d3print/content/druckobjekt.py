@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# from plone.app.textfield import RichText
+from plone.app.textfield import RichText
 # from plone.autoform import directives
 from plone.dexterity.content import Container
 # from plone.namedfile import field as namedfile
@@ -17,10 +17,10 @@ from zope.interface import implementer
 class IDruckobjekt(model.Schema):
     """ Marker interface and Dexterity Python Schema for Druckobjekt
     """
-    printmodell = NamedBlobFile(title = u"gcode Datei für Prusa")
-    printmodell2 = NamedBlobFile(title = u"gcode Datei für Artillity")
     vorschaubild = NamedBlobImage(title = u"Vorschaubild")
-    pdfdoku = NamedBlobFile(title = u'Dokumentation')
+    druckobjekthaupttext = schema.Text(
+            title="Wichtige Informationen zum Druckobjekt",
+            required=False)
     # If you want, you can load a xml model created TTW here
     # and customize it in Python:
 

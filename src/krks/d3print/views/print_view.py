@@ -27,17 +27,18 @@ class PrintView(BrowserView):
         templatelist=[]
         filelist = self.context.getFolderContents()
         for i in filelist:
-            druckdatei={}
-            druckdatei['url']=i.getURL() + '/upload_view'
-            druckdatei['title']=i.Title
-            obj = i.getObject()
-            drucker = obj.drucker
-            druckdatei['druckername'] = get_printers(self.context).getTerm(drucker).title
-            templatelist.append(druckdatei)
+            if i.portal_type=='GCode Datei':
+                druckdatei={}
+                druckdatei['url']=i.getURL() + '/upload_view'
+                druckdatei['title']=i.Title
+                obj = i.getObject()
+                drucker = obj.drucker
+                druckdatei['druckername'] = get_printers(self.context).getTerm(drucker).title
+                templatelist.append(druckdatei)
 
         return(templatelist)
             
-
+    #def get_images(self):
 
     def vorschaubild(self):
         vorschaubild = self.context.vorschaubild
@@ -46,3 +47,7 @@ class PrintView(BrowserView):
     def pdfdoku(self):
         pdfdoku = self.context.pdfdoku
         return pdfdoku
+
+    def druckobjekthaupttext(self):
+        druckobjekthaupttext = self.context.druckobjekthaupttext
+        return druckobjekthaupttext

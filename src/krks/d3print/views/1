@@ -1,139 +1,116 @@
-# -*- coding: utf-8 -*-
-import requests
-from time import sleep
-from krks.d3print import _
-from Products.Five.browser import BrowserView
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="krks.d3print"
+      metal:use-macro="context/main_template/macros/master">
+<body>
+  <metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
 
-from requests.exceptions import Timeout
+    <div class="container">
 
-# from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+     <div class="row" tal:condition="view/druckerbild">
+      <div class="col-12 col-md-6">
+          <img class="img-fluid" src="" tal:attributes="src view/druckerbild">
+      </div>
+      <div class="col-12 col-md-6">
+          <h1 tal:content="context/title"/>
+          <p class="documentDescription" tal:content="context/description"/>
+          <span tal:replace="structure view/haupttext"></span>
+      </div>    
+    </div>
 
-post_headers = {
-    'Host': '192.168.86.56:5001',  # Aus Content-Objekt
-    'X-Api-Key': '02AC33DA679D4A93BA6BF9EAB1CF01CC',  # Aus Content-Objekt
-    'Content-Type': 'application/json'  # konstant
-}
+    <div class="row" tal:condition="not:view/druckerbild">
+      <div class="col-12 col-md-12">
+          <h1 tal:content="context/title"/>
+          <p class="documentDescription" tal:content="context/description"/>
+          <span tal:replace="structure view/haupttext"></span>
+      </div>
+    </div>
 
-get_headers = {
-    'Host': '192.168.86.56:5001',  # Aus Content-Objekt
-    'X-Api-Key': '02AC33DA679D4A93BA6BF9EAB1CF01CC'  # Aus Content-Objekt
-}
+    <div tal:define="tempdata view/connect_printer" class="row mt-3">
+      <div class="col-12">
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <!--  <th scope="row">3</th> -->
+                <td>Status</td>
+                <td tal:content="tempdata/state"></td>
+              </tr>
+              <tr>
+                <td>Druckauftrag</td>
+                <td tal:content="tempdata/jobname"></td>
+              </tr>
+              <tr>
+                <td>Verbleibend</td>
+                <td tal:content="tempdata/remainingtime"></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
 
-connect_json = {
-    'command': 'connect',
-    'port': '/dev/ttyUSB0',  # Aus Content-Objekt (Drop-Down)
-    'baudrate': 250000,  # Aus Content-Objekt (Drop-Down)
-    'printerProfile': '_default',
-    'save': 'true',
-    'autoconnect': 'true'
-}
+    <br>
 
+    <div tal:define="tempdata view/connect_printer" class="row mt-3">
+      <div class="col-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                  <!-- <th scope="col">#</th> -->
+                <th scope="col">Eigenschaften</th>
+                <th scope="col">Aktuell</th>
+                <th scope="col">Ziel</th>
+              </tr>
+            </thead>
+            <tbody>
+                <!--<tr>-->
+                <!--  <th scope="row">3</th> -->
+                <!--<td>Status</td>-->
+                <!--<td tal:content="tempdata/state"></td>-->
+                <!--<td>Keine Funktion</td>-->
+                <!--</tr>-->
+              <tr>
+                  <!-- <th scope="row">2</th> -->
+                <td>Tooltemperatur</td>
+                <td tal:content="tempdata/tooltemp"></td>
+                <td tal:content="tempdata/tooltemp_target"></td>
+              </tr>
+              <tr>
+                  <!-- <th scope="row">3</th> -->
+                <td>Betttemperatur</td>
+                <td tal:content="tempdata/bedtemp"></td>
+                <td tal:content="tempdata/bedtemp_target"></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
 
-class Druckerview(BrowserView):
-    # If you want to define a template here, please remove the template from
-    # the configure.zcml registration of this view.
-    # template = ViewPageTemplateFile('druckerview.pt')
-
-    def __call__(self):
-        # Implement your own actions:
-        self.msg = _(u'A small message')
-        return self.index()
-
-    def aktualisieren(self):
-        url = self.context.absolute_url() + '/druckerview'
-        return url
-
-    def connect_printer(self):
-
-        tooltemp = 'k.A'
-        bedtemp = 'k.A'
-        tooltemp_target = 'k.A.'
-        bedtemp_target = 'k.A.'
-        state = 'k.A.'
-
-        try:
-            response = requests.get('http://192.168.86.56:5001', timeout=1)
-            import pdb; pdb.set_trace()
-        except Timeout:
-            print('The request timed out')
-            # return self.request.redirect(self.context.absolute_url()+'/error_view')
-            # return {'tooltemp':tooltemp, 'bedtemp':bedtemp, 'tooltemp_target':tooltemp_target, 'bedtemp_target':bedtemp_target, 'state':state}
-            return None
-        else:
-            print('The request did not time out')
-
-            jobstateresult = requests.get('http://192.168.86.56:5001/api/job', headers=get_headers, timeout=2)
-            jobstatedict = jobstateresult.json()
-            if jobstateresult:
-                jobstatezwischenergebnis1 = jobstatedict.get("job")
-                if jobstatezwischenergebnis1:
-                    jobname = jobstatezwischenergebnis1['file']['name']
-
-                    import pdb; pdb.set_trace()
-
-                jobstatezwischenergebnis2 = jobstatedict.get("progress")
-                if jobstatezwischenergebnis2:
-                    remainingtime = jobstatezwischenergebnis2['printTimeLeft']
-
-            print(jobname)
-            print(remainingtime)
-
-            remainingtime = "ca. " + str(remainingtime) + " Sekunden verbleibend"
-
-            if jobname == None:
-                jobname = "Kein Druckauftrag"
-                remainingtime = "Kein Druckauftrag"
-
-            connectionresult = requests.get('http://192.168.86.56:5001/api/connection', headers=get_headers, timeout=2)
-            connectiondict = connectionresult.json()
-            if connectiondict:
-                result1 = connectiondict.get("current")
-                if result1:
-                    state = result1['state']
-
-            if state == "Operational" or state == "Printing":
-
-                data = requests.get('http://192.168.86.56:5001/api/printer', headers=get_headers)
-                datadict = data.json()
-
-                if datadict:
-                    temp = datadict.get("temperature")
-                    if temp:
-                        tooltemp = temp['tool0']['actual']
-                        bedtemp = temp['bed']['actual']
-                        tooltemp_target = temp['tool0']['target']
-                        bedtemp_target = temp['bed']['target']
-                    return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target,
-                            'bedtemp_target': bedtemp_target, 'state': state, 'jobname': jobname,
-                            'remainingtime': remainingtime}
+   <div class="row" tal:define="gcodes view/get_gcodes" tal:condition="gcodes">
+       <h2>Druckbare Modelle</h2>
+       <ul class="list-group">
+         <li tal:repeat="modell gcodes" tal:content="modell/title" class="list-group-item">Cras justo odio</li>
+       </ul>
+   </div>
 
 
-            else:
+    
+    <div class="row" tal:condition="view/handbuch">
+        <div class="col-12">
+            <a href="" tal:attributes="href view/handbuch" tal:content="view/filename"/>
+        </div>
+    </div>
 
-                result = requests.post('http://192.168.86.56:5001/api/connection', headers=post_headers,
-                                       json=connect_json)
-                print(result.status_code)
-                if result.status_code == 204:
-                    sleep(5)
-                    data = requests.get('http://192.168.86.56:5001/api/printer', headers=get_headers)
-                    datadict = data.json()
+      <div class="col-12 col-md-6">
+        <div class="row">
+          <a href="" tal:attributes="href view/aktualisieren" type="button" role="button" class="btn btn-primary">Aktualisieren</a>
+        </div>
+      </div>
+    </div> <!--Container-->
+    </tal:main-macro>
+</metal:main>
 
-                    if datadict:
-                        temp = datadict.get("temperature")
-                        if temp:
-                            tooltemp = temp['tool0']['actual']
-                            bedtemp = temp['bed']['actual']
-                            tooltemp_target = temp['tool0']['target']
-                            bedtemp_target = temp['bed']['target']
-
-                    connectionresult = requests.get('http://192.168.86.56:5001/api/connection', headers=get_headers)
-                    connectiondict = connectionresult.json()
-                    if connectiondict:
-                        result1 = connectiondict.get("current")
-                        if result1:
-                            state = result1['state']
-
-                else:
-                    print("Error")
-                return {'tooltemp': tooltemp, 'bedtemp': bedtemp, 'tooltemp_target': tooltemp_target,
-                        'bedtemp_target': bedtemp_target, 'state': state}
+</body>
+</html>

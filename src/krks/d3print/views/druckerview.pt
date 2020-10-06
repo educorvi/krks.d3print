@@ -5,11 +5,32 @@
       i18n:domain="krks.d3print"
       metal:use-macro="context/main_template/macros/master">
 <body>
-  <metal:block fill-slot="content-core">
+  <metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
 
-    <div tal:define="tempdata view/connect_printer" class="container">
+    <div class="container">
+
+     <div class="row" tal:condition="view/druckerbild">
       <div class="col-12 col-md-6">
-        <div class="row">
+          <img class="img-fluid" src="" tal:attributes="src view/druckerbild">
+      </div>
+      <div class="col-12 col-md-6">
+          <h1 tal:content="context/title"/>
+          <p class="documentDescription" tal:content="context/description"/>
+          <span tal:replace="structure view/haupttext"></span>
+      </div>    
+    </div>
+
+    <div class="row" tal:condition="not:view/druckerbild">
+      <div class="col-12 col-md-12">
+          <h1 tal:content="context/title"/>
+          <p class="documentDescription" tal:content="context/description"/>
+          <span tal:replace="structure view/haupttext"></span>
+      </div>
+    </div>
+
+    <div tal:define="tempdata view/connect_printer" class="row mt-3">
+      <div class="col-12">
           <table class="table table-striped">
             <tbody>
               <tr>
@@ -27,15 +48,13 @@
               </tr>
             </tbody>
           </table>
-        </div>
       </div>
     </div>
 
     <br>
 
-    <div tal:define="tempdata view/connect_printer" class="container">
-      <div class="col-12 col-md-6">
-        <div class="row">
+    <div tal:define="tempdata view/connect_printer" class="row mt-3">
+      <div class="col-12">
           <table class="table table-striped">
             <thead>
               <tr>
@@ -66,15 +85,40 @@
               </tr>
             </tbody>
           </table>
-        </div>
       </div>
     </div>
+
+   <div class="row" tal:define="gcodes view/get_gcodes" tal:condition="gcodes">
+    <div class="col-12">
+       <h2>Druckbare Modelle</h2>
+       <ul class="list-group">
+         <li tal:repeat="modell gcodes" class="list-group-item">
+           <img src="" tal:attributes="src modell/vorschaubild">
+           <a href="" tal:attributes="href modell/url">
+           <span tal:content="modell/title"/>
+           </a>
+         </li>
+       </ul>
+    </div>
+   </div>
+
+
     
+    <div class="row" tal:condition="view/handbuch">
+        <div class="col-12">
+            <h2>Download Druckerhandbuch</h2>
+            <a href="" tal:attributes="href view/handbuch" tal:content="view/filename"/>
+        </div>
+    </div>
+
       <div class="col-12 col-md-6">
         <div class="row">
           <a href="" tal:attributes="href view/aktualisieren" type="button" role="button" class="btn btn-primary">Aktualisieren</a>
         </div>
       </div>
-</metal:block>
+    </div> <!--Container-->
+    </tal:main-macro>
+</metal:main>
+
 </body>
 </html>
